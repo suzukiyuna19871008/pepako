@@ -42,10 +42,12 @@ $app->post('/callback', function (Request $request) use ($app) {
                 $path = sprintf('me/messages?access_token=%s', getenv('FACEBOOK_PAGE_ACCESS_TOKEN'));
                 $json = [
                     'recipient' => [
-                        'id' => $from, 
+                        'id' => $from,
                     ],
+                    /*'message' => [
+                        'text' => sprintf('%sじゃない', $text), */
                     'message' => [
-                        'text' => sprintf('%sじゃない', $text), 
+                        'text' => sprintf('%sかもね', $text), 
                     ],
                 ];
                 $client->request('POST', $path, ['json' => $json]);
