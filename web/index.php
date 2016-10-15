@@ -44,8 +44,8 @@ $app->post('/callback', function (Request $request) use ($app) {
                     'recipient' => [
                         'id' => $from,
                     ],
-                    /*'message' => [
-                        'text' => sprintf('%sじゃない', $text), */
+                    'message' => [
+                        'text' => sprintf('%sじゃないかも', $text),
                     'message' => [
                         'text' => sprintf('%sかもね', $text), 
                     ],
