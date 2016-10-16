@@ -38,8 +38,6 @@ $post = <<< EOM
                                 "payload":"USER_DEFINED_PAYLOAD_FOR_ITEM100"
                             }                            
                         ]
-                    },
-                    {
                     }
                 ]
             }
