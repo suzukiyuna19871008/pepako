@@ -21,7 +21,7 @@ $post = <<< EOM
                 "template_type":"generic",
                 "elements":[
                     {
-                        "title":"Classic White T-Shirt",
+                        "title":"あなたのリクエストを教えて１",
                         "image_url":"http://hiroki-suzuki.com/wp-content/uploads/2015/06/pepper.jpg",
                         "subtitle":"Soft white cotton t-shirt is back in style",
                         "buttons":[
