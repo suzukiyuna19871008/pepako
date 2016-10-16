@@ -1,6 +1,4 @@
 <?php
-error_log('fbdev callback!');
-
 $access_token = "EAAJsajacL7QBAJFCL9qKYUVNKPYNwjiIRL5uILcnpi2wGNcCFhlg80FTlQUllNJ0Bj7TpAuGbZBTZCSsXW4sCD6la2mZCosSRPUh6odZCXVUoq2l0tEhiQURpCyIic0XPh1cj3531MDd6nWZCVRySr3bfM1brtG4lXlxhVcKXeJHONvnVZCNk5";
 
 // メッセージ受信
@@ -18,51 +16,18 @@ $post = <<< EOM
         "attachment":{
             "type":"template",
             "payload":{
-                "template_type":"generic",
-                "elements":[
+                "template_type":"button",
+                "text":"あなたのリクエストを教えて！",
+                "buttons":[
                     {
-                        "title":"Classic White T-Shirt",
-                        "image_url":"http://hiroki-suzuki.com/wp-content/uploads/2015/06/pepper.jpg",
-                        "subtitle":"Soft white cotton t-shirt is back in style",
-                        "buttons":[
-                            {
-                                "type":"web_url",
-                                "url":"https://messengerplatform.fb.com",
-                                "title":"View Item"
-                            },
-                            {
-                                "type":"web_url",
-                                "url":"https://developers.facebook.com/docs/messenger-platform",
-                                "title":"Buy Item"
-                            },
-                            {
-                                "type":"postback",
-                                "title":"Bookmark Item",
-                                "payload":"USER_DEFINED_PAYLOAD_FOR_ITEM100"
-                            }                            
-                        ]
+                        "type":"web_url",
+                        "url":"https://messengerplatform.fb.com",
+                        "title":"Show Website"
                     },
                     {
-                        "title":"Classic Grey T-Shirt",
-                        "image_url":"http://hiroki-suzuki.com/wp-content/uploads/2015/06/pepper.jpg",
-                        "subtitle":"Soft gray cotton t-shirt is back in style",
-                        "buttons":[
-                            {
-                                "type":"web_url",
-                                "url":"https://messengerplatform.fb.com",
-                                "title":"View Item"
-                            },
-                            {
-                                "type":"web_url",
-                                "url":"https://developers.facebook.com/docs/messenger-platform",
-                                "title":"Buy Item"
-                            },
-                            {
-                                "type":"postback",
-                                "title":"Bookmark Item",
-                                "payload":"USER_DEFINED_PAYLOAD_FOR_ITEM101"
-                            }                            
-                        ]
+                        "type":"postback",
+                        "title":"Start Chatting",
+                        "payload":"USER_DEFINED_PAYLOAD"
                     }
                 ]
             }
