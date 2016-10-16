@@ -18,7 +18,7 @@ $post = <<< EOM
                 "template_type":"generic",
                 "elements":[
                     {
-                        "title":"あなたのリクエストを教えて１",
+                        "title":"あなたのリクエストを教えて！",
                         "image_url":"http://hiroki-suzuki.com/wp-content/uploads/2015/06/pepper.jpg",
                         "subtitle":"ペパ子はあなたのコンシェルジュです。",
                         "buttons":[
