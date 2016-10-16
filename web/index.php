@@ -23,7 +23,7 @@ $post = <<< EOM
                     {
                         "title":"あなたのリクエストを教えて１",
                         "image_url":"http://hiroki-suzuki.com/wp-content/uploads/2015/06/pepper.jpg",
-                        "subtitle":"Soft white cotton t-shirt is back in style",
+                        "subtitle":"ペパ子はあなたのコンシェルジュです。",
                         "buttons":[
                             {
                                 "type":"web_url",
