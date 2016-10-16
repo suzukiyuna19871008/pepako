@@ -15,6 +15,11 @@ $post = <<< EOM
     "recipient":{
         "id":"{$from_user_id}"
     },
+    //YS added for persistant function
+    "postback":{
+    "payload":"USER_DEFINED_PAYLOAD"
+  }
+    
     "message":{
         "attachment":{
             "type":"template",
