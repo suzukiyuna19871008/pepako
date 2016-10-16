@@ -8,6 +8,10 @@ $json_object = json_decode($json_string);
 $from_user_id =$json_object->entry{0}->messaging{0}->sender->id;
 $post = <<< EOM
 {
+    "sender":{
+        "id":"USER_ID"
+    },
+
     "recipient":{
         "id":"{$from_user_id}"
     },
@@ -42,7 +46,7 @@ $post = <<< EOM
                 ]
             }
         }
-    }
+    },
 }
 EOM;
 // メッセージ送信
