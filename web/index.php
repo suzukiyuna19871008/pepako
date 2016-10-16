@@ -27,6 +27,45 @@ $app->get('/callback', function (Request $request) use ($app) {
 
 $app->post('/callback', function (Request $request) use ($app) {
     // Let's hack from here!
+    // メッセージ受信
+$json_string = file_get_contents('php://input');
+error_log($json_string);
+$json_object = json_decode($json_string);
+$from_user_id =$json_object->entry{0}->messaging{0}->sender->id;
+
+$post = <<< EOM
+{
+    "recipient":{
+        "id":"{$from_user_id}"
+    },
+    "message":{
+        "attachment":{
+            "type":"template",
+            "payload":{
+                "template_type":"button",
+                "text":"What do you want to do next?",
+                "buttons":[
+                    {
+                        "type":"web_url",
+                        "url":"https://messengerplatform.fb.com",
+                        "title":"Show Website"
+                    },
+                    {
+                        "type":"postback",
+                        "title":"Start Chatting",
+                        "payload":"USER_DEFINED_PAYLOAD"
+                    }
+                ]
+            }
+        }
+    }
+}
+EOM;
+
+    
+    
+    
+    /*
     $body = json_decode($request->getContent(), true);
     $client = new Client(['base_uri' => 'https://graph.facebook.com/v2.6/']);
 
@@ -46,11 +85,10 @@ $app->post('/callback', function (Request $request) use ($app) {
                     ],
                     'message' => [
                         'text' => sprintf('%sじゃないかも', $text),
-                    ・/*'message' => [
-                        'text' => sprintf('%sかもね', $text), */
+ 
                     ],
                 ];
-                $client->request('POST', $path, ['json' => $json]);
+                $client->request('POST', $path, ['json' => $json]);*/
             }
         }
 
