@@ -1,7 +1,7 @@
 <?php
 error_log('fbdev callback!');
 
-$access_token = "[ACCESS TOKEN]";
+$access_token = "EAAJsajacL7QBAJFCL9qKYUVNKPYNwjiIRL5uILcnpi2wGNcCFhlg80FTlQUllNJ0Bj7TpAuGbZBTZCSsXW4sCD6la2mZCosSRPUh6odZCXVUoq2l0tEhiQURpCyIic0XPh1cj3531MDd6nWZCVRySr3bfM1brtG4lXlxhVcKXeJHONvnVZCNk5";
 
 // メッセージ受信
 $json_string = file_get_contents('php://input');
@@ -22,7 +22,7 @@ $post = <<< EOM
                 "elements":[
                     {
                         "title":"Classic White T-Shirt",
-                        "image_url":"[画像URL]",
+                        "image_url":"http://hiroki-suzuki.com/wp-content/uploads/2015/06/pepper.jpg",
                         "subtitle":"Soft white cotton t-shirt is back in style",
                         "buttons":[
                             {
@@ -44,7 +44,7 @@ $post = <<< EOM
                     },
                     {
                         "title":"Classic Grey T-Shirt",
-                        "image_url":"[画像URL]",
+                        "image_url":"http://hiroki-suzuki.com/wp-content/uploads/2015/06/pepper.jpg",
                         "subtitle":"Soft gray cotton t-shirt is back in style",
                         "buttons":[
                             {
