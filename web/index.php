@@ -1,62 +1,65 @@
 <?php
-
-require('../vendor/autoload.php');
-
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use GuzzleHttp\Client;
-
-$app = new Silex\Application();
-
-$app->register(new Silex\Provider\MonologServiceProvider(), array(
-    'monolog.logfile' => 'php://stderr',
-));
-
-$app->before(function (Request $request) use($bot) {
-    // TODO validation
-});
-
-$app->get('/callback', function (Request $request) use ($app) {
-    $response = "";
-    if ($request->query->get('hub_verify_token') === getenv('FACEBOOK_PAGE_VERIFY_TOKEN')) {
-        $response = $request->query->get('hub_challenge');
-    }
-
-    return $response;
-});
-
-$app->post('/callback', function (Request $request) use ($app) {
-    // Let's hack from here!
-    $body = json_decode($request->getContent(), true);
-    $client = new Client(['base_uri' => 'https://graph.facebook.com/v2.6/']);
-
-    foreach ($body['entry'] as $obj) {
-        $app['monolog']->addInfo(sprintf('obj: %s', json_encode($obj)));
-
-        foreach ($obj['messaging'] as $m) {
-            $app['monolog']->addInfo(sprintf('messaging: %s', json_encode($m)));
-            $from = $m['sender']['id'];
-            $text = $m['message']['text'];
-
-            if ($text) {
-                $path = sprintf('me/messages?access_token=%s', getenv('FACEBOOK_PAGE_ACCESS_TOKEN'));
-                $json = [
-                    'recipient' => [
-                        'id' => $from,
-                    ],
-                    /*'message' => [
-                        'text' => sprintf('%sじゃないかも', $text),*/
-                    *'message' => [
-                        'text' => sprintf('%sかもね', $text), 
-                    ],
-                ];
-                $client->request('POST', $path, ['json' => $json]);
+error_log('fbdev callback!');
+$access_token = "EAAJsajacL7QBAJFCL9qKYUVNKPYNwjiIRL5uILcnpi2wGNcCFhlg80FTlQUllNJ0Bj7TpAuGbZBTZCSsXW4sCD6la2mZCosSRPUh6odZCXVUoq2l0tEhiQURpCyIic0XPh1cj3531MDd6nWZCVRySr3bfM1brtG4lXlxhVcKXeJHONvnVZCNk5";
+// メッセージ受信
+$json_string = file_get_contents('php://input');
+error_log($json_string);
+$json_object = json_decode($json_string);
+$from_user_id =$json_object->entry{0}->messaging{0}->sender->id;
+$post = <<< EOM
+{
+    "recipient":{
+        "id":"{$from_user_id}"
+    },
+    "message":{
+        "attachment":{
+            "type":"template",
+            "payload":{
+                "template_type":"generic",
+                "elements":[
+                    {
+                        "title":"あなたのリクエストを教えて１",
+                        "image_url":"http://hiroki-suzuki.com/wp-content/uploads/2015/06/pepper.jpg",
+                        "subtitle":"ペパ子はあなたのコンシェルジュです。",
+                        "buttons":[
+                            {
+                                "type":"web_url",
+                                "url":"https://messengerplatform.fb.com",
+                                "title":"View Item"
+                            },
+                            {
+                                "type":"web_url",
+                                "url":"https://developers.facebook.com/docs/messenger-platform",
+                                "title":"Buy Item"
+                            },
+                            {
+                                "type":"postback",
+                                "title":"Bookmark Item",
+                                "payload":"USER_DEFINED_PAYLOAD_FOR_ITEM100"
+                            }                            
+                        ]
+                    },
+                    {
+                      
+                    }
+                ]
             }
         }
-
     }
-
-    return 0;
-});
-
-$app->run();
+}
+EOM;
+// メッセージ送信
+api_send_request($access_token, $post);
+function api_send_request($access_token, $post) {
+    $url = "https://graph.facebook.com/v2.6/me/messages?access_token={$access_token}";
+    $headers = array(
+        "Content-Type: application/json"
+    );
+    $curl = curl_init($url);
+    curl_setopt($curl, CURLOPT_POST, true);
+    curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
+    curl_setopt($curl, CURLOPT_POSTFIELDS, $post);
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+    $output = curl_exec($curl);
+}
